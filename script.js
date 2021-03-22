@@ -24,4 +24,16 @@ function createCanvas(data) {
                 .attr('height', h + 2 * yPadding)
                 .append('g')
                 .attr('transform', `translate(${xPadding}, ${yPadding / 2})`);
-}
+
+  createCircles(svg, data);
+}  // End createCanvas()
+
+
+function createCircles(svg, data) {
+  let xScale = d3.scaleTime()
+                 .domain([
+                   d3.min(data, d => new Date(`${d.Year - 1} 00:00`)),
+                   d3.max(data, d => new Date(`${d.Year + 1} 00:00`))
+                 ])
+                 .range([0, w]);
+}  // End createCircles()
