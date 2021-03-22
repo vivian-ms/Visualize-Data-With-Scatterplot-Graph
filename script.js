@@ -61,4 +61,25 @@ function createCircles(svg, data) {
      .attr('data-xvalue', d => d.Year)
      .attr('data-yvalue', d => convertTime(d.Time))
      .classed('dot', true);
+
+  createAxes(svg, xScale, yScale);
 }  // End createCircles()
+
+
+function createAxes(svg, xScale, yScale) {
+  let xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat('%Y'));
+  svg.append('g')
+     .attr('id', 'x-axis')
+     .attr('transform', `translate(0, ${h})`)
+     .call(xAxis);
+
+  let yAxis = d3.axisLeft(yScale).tickFormat(d3.timeFormat('%M:%S'));
+  svg.append('g')
+     .attr('id', 'y-axis')
+     .call(yAxis);
+  svg.append('text')
+     .attr('id', 'y-label')
+     .attr('text-anchor', 'middle')
+     .attr('transform', `translate(-50, ${h / 2}) rotate(-90)`)
+     .text('Time (in minutes)');
+}  // End createAxes()
