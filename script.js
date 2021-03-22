@@ -4,6 +4,13 @@ const h = 400;
 const xPadding = 100;
 const yPadding = 50;
 
+const convertTime = time => {
+  let utc = new Date(Date.UTC(70, 0, 1, 0, time.substr(0, 2), time.substr(3)));
+  let offset = utc.getTimezoneOffset();
+  utc.setMinutes(utc.getMinutes() + offset);
+  return utc;
+};
+
 
 window.onload = () => {
   fetch(resource)
