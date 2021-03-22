@@ -43,4 +43,11 @@ function createCircles(svg, data) {
                    d3.max(data, d => new Date(`${d.Year + 1} 00:00`))
                  ])
                  .range([0, w]);
+
+  let yScale = d3.scaleTime()
+                .domain([
+                  d3.min(data, d => convertTime(d.Time)),
+                  d3.max(data, d => convertTime(d.Time)),
+                ])
+                .range([h, 0]);
 }  // End createCircles()
