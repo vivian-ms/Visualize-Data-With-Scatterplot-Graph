@@ -50,4 +50,15 @@ function createCircles(svg, data) {
                   d3.max(data, d => convertTime(d.Time)),
                 ])
                 .range([h, 0]);
+
+  svg.selectAll('circle')
+     .data(data)
+     .enter()
+     .append('circle')
+     .attr('cx', d => xScale(new Date(`${d.Year} 00:00`)))
+     .attr('cy', d => yScale(convertTime(d.Time)))
+     .attr('r', 7)
+     .attr('data-xvalue', d => d.Year)
+     .attr('data-yvalue', d => convertTime(d.Time))
+     .classed('dot', true);
 }  // End createCircles()
