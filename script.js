@@ -51,6 +51,11 @@ function createCircles(svg, data) {
                 ])
                 .range([h, 0]);
 
+  let tooltip = d3.select('#svg_container')
+                  .append('div')
+                  .attr('id', 'tooltip')
+                  .style('opacity', 0);
+
   svg.selectAll('circle')
      .data(data)
      .enter()
@@ -60,7 +65,22 @@ function createCircles(svg, data) {
      .attr('r', 7)
      .attr('data-xvalue', d => d.Year)
      .attr('data-yvalue', d => convertTime(d.Time))
-     .classed('dot', true);
+     .classed('dot', true)
+     .on('mouseover', (evt, d) => {
+       tooltip.transition()
+              .duration('50')
+              .style('opacity', 1)
+              .style('left', `${evt.x}px`)
+              .style('top', `${d3.select(evt.currentTarget).attr('cy')}px`);
+       tooltip.attr('data-year', d.Year)
+              .html(`<h4>${d.Year}</h4> <p>${d.Name} (${d.Nationality}) - ${d.Time} ${d.Doping ? `</p><br /> <p>${d.Doping}`: ''}</p>`);
+
+     })
+     .on('mouseout', (evt, d) => {
+       tooltip.transition()
+              .duration('50')
+              .style('opacity', 0);
+     });
 
   createAxes(svg, xScale, yScale);
 }  // End createCircles()
