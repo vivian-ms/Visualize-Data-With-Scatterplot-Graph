@@ -3,6 +3,8 @@ const w = 800;
 const h = 400;
 const xPadding = 100;
 const yPadding = 50;
+const doping = (a = 1) => `rgba(255, 105, 180, ${a})`;  // hotpink
+const no_doping = (a = 1) => `rgba(106, 90, 205, ${a})`;  // slateblue
 
 const convertTime = time => {
   let utc = new Date(Date.UTC(70, 0, 1, 0, time.substr(0, 2), time.substr(3)));
@@ -65,13 +67,15 @@ function createCircles(svg, data) {
      .attr('r', 7)
      .attr('data-xvalue', d => d.Year)
      .attr('data-yvalue', d => convertTime(d.Time))
+     .attr('fill', d => d.Doping ? doping() : no_doping())
      .classed('dot', true)
      .on('mouseover', (evt, d) => {
        tooltip.transition()
               .duration('50')
               .style('opacity', 1)
               .style('left', `${evt.x}px`)
-              .style('top', `${d3.select(evt.currentTarget).attr('cy')}px`);
+              .style('top', `${d3.select(evt.currentTarget).attr('cy')}px`)
+              .style('background', d.Doping ? doping(0.6) : no_doping(0.6));
        tooltip.attr('data-year', d.Year)
               .html(`<h4>${d.Year}</h4> <p>${d.Name} (${d.Nationality}) - ${d.Time} ${d.Doping ? `</p><br /> <p>${d.Doping}`: ''}</p>`);
 
