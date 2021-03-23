@@ -87,6 +87,7 @@ function createCircles(svg, data) {
      });
 
   createAxes(svg, xScale, yScale);
+  createLegend(svg);
 }  // End createCircles()
 
 
@@ -107,3 +108,39 @@ function createAxes(svg, xScale, yScale) {
      .attr('transform', `translate(-50, ${h / 2}) rotate(-90)`)
      .text('Time (in minutes)');
 }  // End createAxes()
+
+
+function createLegend(svg) {
+  let g = svg.append('g')
+             .attr('id', 'legend')
+             .attr('transform', `translate(${w - xPadding * 1.5}, ${h / 2})`);
+  g.append('rect')
+   .attr('x', 0)
+   .attr('y', 0)
+   .attr('width', 150)
+   .attr('height', 90)
+   .attr('fill', 'none')
+   .attr('stroke', 'black');
+  g.append('rect')
+   .attr('x', 10)
+   .attr('y', 20)
+   .attr('width', 15)
+   .attr('height', 15)
+   .attr('fill', doping());
+  g.append('rect')
+   .attr('x', 10)
+   .attr('y', 55)
+   .attr('width', 15)
+   .attr('height', 15)
+   .attr('fill', no_doping());
+  g.append('text')
+   .attr('text-anchor', 'center')
+   .attr('x', 30)
+   .attr('y', 33)
+   .text('Doping allegations');
+  g.append('text')
+   .attr('text-anchor', 'center')
+   .attr('x', 30)
+   .attr('y', 68)
+   .text('No doping allegations');
+}  // End createLegend()
