@@ -1,7 +1,62 @@
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+#title {
+  text-align: center;
+  font-variant: small-caps;
+  font-size: 2.5rem;
+}
+
 #svg_container {
   position: relative;
+  text-align: center;
+}
+
+.dot {
+  stroke: black;
+  opacity: 0.75;
 }
 
 #tooltip {
   position: absolute;
+  text-align: left;
+  padding: 10px;
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+#tooltip h4, #tooltip p {
+  margin: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#tooltip h4 {
+  margin-bottom: 0.5rem;
+}
+
+#x-axis, #y-axis {
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+#y-label {
+  font-weight: bold;
+}
+
+#legend {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+footer {
+  font-size: 0.8rem;
+  padding: 10px;
 }
